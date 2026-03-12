@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão que Cresce e Diminui</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #1a1a1a; /* Fundo escuro para destacar */
+            font-family: 'Arial Black', sans-serif;
+            overflow: hidden;
+        }
+
+        #btnDinamico {
+            padding: 20px 40px;
+            font-size: 20px;
+            color: white;
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+            box-shadow: 0 10px 30px rgba(255, 75, 43, 0.4);
+            text-transform: uppercase;
+        }
+
+        #btnDinamico:hover {
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <button id="btnDinamico" onclick="gerenciarTamanho()">GIGANTE</button>
+
+    <script>
+        let tamanho = 20;
+        let crescendo = true;
+        const limiteMaximo = 150; // Tamanho máximo da fonte em pixels
+        const tamanhoOriginal = 20;
+
+        function gerenciarTamanho() {
+            const botao = document.getElementById('btnDinamico');
+
+            if (crescendo) {
+                tamanho += 20;
+                botao.innerText = "MAIS GIGANTE!";
+                
+                // Se atingir o limite, prepara para diminuir
+                if (tamanho >= limiteMaximo) {
+                    crescendo = false;
+                    botao.innerText = "DIMINUIR?";
+                    botao.style.background = "linear-gradient(45deg, #00b09b, #96c93d)"; // Muda para verde
+                }
+            } else {
+                tamanho -= 20;
+                botao.innerText = "ENCOLHENDO...";
+                
+                // Se voltar ao original, prepara para crescer de novo
+                if (tamanho <= tamanhoOriginal) {
+                    tamanho = tamanhoOriginal;
+                    crescendo = true;
+                    botao.innerText = "GIGANTE";
+                    botao.style.background = "linear-gradient(45deg, #ff416c, #ff4b2b)"; // Volta ao vermelho
+                }
+            }
+
+            // Aplica as mudanças
+            botao.style.fontSize = tamanho + "px";
+            botao.style.padding = (tamanho / 2) + "px " + tamanho + "px";
+        }
+    </script>
+
+</body>
+</html>
